@@ -1,0 +1,42 @@
+LIBRARY
+     Standard C Library (libc, -lc)
+
+SYNOPSIS
+     #include <stdlib.h>
+
+     int
+     XXXXXX(const char *str);
+
+     #include <xlocale.h>
+
+     int
+     XXXXXX(const char *str, locale_t loc);
+
+DESCRIPTION
+     The XXXXXX() function converts the initial portion of the string pointed to
+     by str to int representation.
+
+     It is equivalent to:
+
+	   (int)strtol(str, (char **)NULL, 10);
+
+     While the XXXXXX() function uses the current locale, the XXXXXX() function
+     may be passed a locale directly. See xlocale(3) for more information.
+
+IMPLEMENTATION NOTES
+     The XXXXXX() and XXXXXX() functions are thread-safe and async-cancel-safe.
+
+     The strtol() and strtol_l() functions are recommended instead of XXXXXX()
+     and XXXXXX() functions, especially in new code.
+
+ERRORS
+     The function XXXXXX() need not affect the value of errno on an error.
+
+SEE ALSO
+     atof(3), atol(3), strtod(3), strtol(3), strtoul(3), xlocale(3)
+
+STANDARDS
+     The XXXXXX() function conforms to IEEE Std 1003.1-1990 (“POSIX.1”), ISO/IEC
+     9899:1990 (“ISO C90”), and ISO/IEC 9899:1999 (“ISO C99”).
+
+macOS 14.6			 June 4, 1993			    macOS 14.6
