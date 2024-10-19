@@ -1,0 +1,93 @@
+LIBRARY
+     Standard C Library (libc, -lc)
+
+SYNOPSIS
+     #include <string.h>
+
+     char *
+     XXXXXX(char * dst, const char * src);
+
+     char *
+     XXXXXX(char * dst, const char * src, size_t len);
+
+     char *
+     XXXXXX(char * dst, const char * src);
+
+     char *
+     XXXXXX(char * dst, const char * src, size_t len);
+
+ADMONISHMENT
+
+	     YOU SHOULD ALMOST CERTAINLY USE XXXXXX() INSTEAD.
+
+		     See "Examples" below.
+
+DESCRIPTION
+     The XXXXXX() and XXXXXX() functions copy the string src to dst (including
+     the terminating ‘\0’ character.)
+
+     The XXXXXX() and XXXXXX() functions copy at most len characters from
+     src into dst.  If src is less than len characters long, the remainder of
+     dst is filled with ‘\0’ characters.  Otherwise, dst is not terminated.
+
+     The source and destination strings should not overlap, as the behavior is
+     undefined.
+
+RETURN VALUES
+     The XXXXXX() and XXXXXX() functions return dst.  The XXXXXX() and
+     XXXXXX() functions return a pointer to the terminating ‘\0’ character of
+     dst.  If XXXXXX() does not terminate dst with a NUL character, it
+     instead returns a pointer to dst[n] (which does not necessarily refer to
+     a valid memory location.)
+
+EXAMPLES
+     The following sets chararray to “abc\0\0\0”:
+
+	   char chararray[6];
+
+	   (void)XXXXXX(chararray, "abc", sizeof(chararray));
+
+     The following sets chararray to “abcdef”:
+
+	   char chararray[6];
+
+	   (void)XXXXXX(chararray, "abcdefgh", sizeof(chararray));
+
+     Note that it does not NUL terminate chararray because the length of the
+     source string is greater than or equal to the length argument.
+
+     The following copies as many characters from input to buf as will fit and
+     NUL terminates the result.  Because XXXXXX() does not guarantee to NUL
+     terminate the string itself, this must be done explicitly.
+
+	   char buf[1024];
+
+	   (void)XXXXXX(buf, input, sizeof(buf) - 1);
+	   buf[sizeof(buf) - 1] = '\0';
+
+     This could be better achieved using XXXXXX(3), as shown in the following
+     example:
+
+	   (void)XXXXXX(buf, input, sizeof(buf));
+
+     Note that because XXXXXX(3) is not defined in any standards, it should
+     only be used when portability is not a concern.
+
+SEE ALSO
+     bcopy(3), memccpy(3), memcpy(3), memmove(3), XXXXXX(3), wcscpy(3)
+
+STANDARDS
+     The XXXXXX() and XXXXXX() functions conform to ISO/IEC 9899:1990
+     (“ISO C90”).  The XXXXXX() and XXXXXX() functions conform to IEEE Std
+     1003.1-2008 (“POSIX.1”).
+
+HISTORY
+     The XXXXXX() function first appeared in FreeBSD 4.4, and XXXXXX() was
+     added in FreeBSD 8.0.
+
+SECURITY CONSIDERATIONS
+     The XXXXXX() function is easily misused in a manner which enables
+     malicious users to arbitrarily change a running program's functionality
+     through a buffer overflow attack.
+
+macOS 14.6		       February 28, 2009		    macOS 14.6
