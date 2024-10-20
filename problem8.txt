@@ -1,0 +1,175 @@
+LIBRARY
+     Standard C Library (libc, -lc)
+
+SYNOPSIS
+     #include <sys/types.h>
+     #include <sys/uio.h>
+     #include <unistd.h>
+
+     ssize_t
+     XXXXXX(int d, void *buf, size_t nbyte, off_t offset);
+
+     ssize_t
+     XXXXXX(int fildes, void *buf, size_t nbyte);
+
+     ssize_t
+     XXXXXX(int d, const struct iovec *iov, int iovcnt, off_t offset);
+
+     ssize_t
+     XXXXXX(int d, const struct iovec *iov, int iovcnt);
+
+DESCRIPTION
+     XXXXXX() attempts to XXXXXX nbyte bytes of data from the object referenced by
+     the descriptor fildes into the buffer pointed to by buf.  XXXXXX()
+     performs the same action, but scatters the input data into the iovcnt
+     buffers specified by the members of the iov array: iov[0], iov[1], ...,
+     iov[iovcnt-1].  XXXXXX() and XXXXXX() perform the same functions, but XXXXXX
+     from the specified position in the file without modifying the file
+     pointer.
+
+     For XXXXXX() and XXXXXX(), the iovec structure is defined as:
+
+	   struct iovec {
+		   char   *iov_base;  /* Base address. */
+		   size_t iov_len;    /* Length. */
+	   };
+
+     Each iovec entry specifies the base address and length of an area in
+     memory where data should be placed.  XXXXXX() and XXXXXX() will always
+     fill an area completely before proceeding to the next.
+
+     On objects capable of seeking, the XXXXXX() starts at a position given by
+     the pointer associated with fildes (see lseek(2)).  Upon return from
+     XXXXXX(), the pointer is incremented by the number of bytes actually XXXXXX.
+
+     Objects that are not capable of seeking always XXXXXX from the current
+     position.	The value of the pointer associated with such an object is
+     undefined.
+
+     Upon successful completion, XXXXXX(), XXXXXX(), XXXXXX(), and XXXXXX() return
+     the number of bytes actually XXXXXX and placed in the buffer.  The system
+     guarantees to XXXXXX the number of bytes requested if the descriptor
+     references a normal file that has that many bytes left before the end-of-
+     file, but in no other case.
+
+     XXXXXX() and XXXXXX() will fail if the parameter nbyte exceeds INT_MAX, and
+     they do not attempt a partial XXXXXX.
+
+RETURN VALUES
+     If successful, the number of bytes actually XXXXXX is returned.  Upon
+     reading end-of-file, zero is returned.  Otherwise, a -1 is returned and
+     the global variable errno is set to indicate the error.
+
+ERRORS
+     The XXXXXX(), XXXXXX(), XXXXXX(), and XXXXXX() calls will succeed unless:
+
+     [EAGAIN]		The file was marked for non-blocking I/O, and no data
+			were ready to be XXXXXX.
+
+     [EBADF]		fildes is not a valid file or socket descriptor open
+			for reading.
+
+     [EFAULT]		Buf points outside the allocated address space.
+
+     [EINTR]		A XXXXXX from a slow device was interrupted before any
+			data arrived by the delivery of a signal.
+
+     [EINVAL]		The pointer associated with fildes was negative.
+
+     [EIO]		An I/O error occurred while reading from the file
+			system.
+
+     [EIO]		The process group is orphaned.
+
+     [EIO]		The file is a regular file, nbyte is greater than 0,
+			the starting position is before the end-of-file, and
+			the starting position is greater than or equal to the
+			offset maximum established for the open file
+			descriptor associated with fildes.
+
+     [EISDIR]		An attempt is made to XXXXXX a directory.
+
+     [ENOBUFS]		An attempt to allocate a memory buffer fails.
+
+     [ENOMEM]		Insufficient memory is available.
+
+     [ENXIO]		An action is requested of a device that does not
+			exist.
+
+     [ENXIO]		A requested action cannot be performed by the device.
+
+     [ESTALE]		An attempt to XXXXXX a remote file through NFS that has
+			already been deleted in the server.
+
+     [ETIMEDOUT]	The connection timed out while reading a remote file
+			from a soft mounted NFS volume (see mount_nfs(8)).
+
+     [ETIMEDOUT]	The file is a “dataless” file that requires
+			materialization and materialization timed out or
+			encountered some other temporary failure.
+
+     [EDEADLK]		The file is a “dataless” file that requires
+			materialization and the I/O policy of the current
+			thread or process disallows dataless file
+			materialization (see getiopolicy_np(3)).
+
+     XXXXXX() and XXXXXX() calls may also return the following errors:
+
+     [EINVAL]		The specified file offset is invalid.
+
+     [ESPIPE]		The file descriptor is associated with a pipe, socket,
+			or FIFO.
+
+     The XXXXXX() call may also return the following errors:
+
+     [ECONNRESET]	The connection is closed by the peer during a XXXXXX
+			attempt on a socket.
+
+     [ENOTCONN] 	A XXXXXX is attempted on an unconnected socket.
+
+     [ETIMEDOUT]	A transmission timeout occurs during a XXXXXX attempt on
+			a socket.
+
+     The XXXXXX() and XXXXXX() call may also return the following error:
+
+     [EINVAL]		The value provided for nbyte exceeds INT_MAX.
+
+     The XXXXXX() and XXXXXX() calls may also return one of the following
+     errors:
+
+     [EFAULT]		Part of the iov points outside the process's allocated
+			address space.
+
+     [EINVAL]		Iovcnt was less than or equal to 0, or greater than
+			16.
+
+     [EINVAL]		One of the iov_len values in the iov array was
+			negative.
+
+     [EINVAL]		The sum of the iov_len values in the iov array
+			overflowed a 32-bit integer.
+
+LEGACY SYNOPSIS
+     #include <sys/types.h>
+     #include <sys/uio.h>
+     #include <unistd.h>
+
+     The include files <sys/types.h> and <sys/uio.h> are necessary for all
+     functions.
+
+SEE ALSO
+     dup(2), fcntl(2), open(2), pipe(2), select(2), socket(2), socketpair(2),
+     compat(5)
+
+STANDARDS
+     The XXXXXX() function call is expected to conform to IEEE Std 1003.1-1990
+     (“POSIX.1”).  The XXXXXX() and XXXXXX() functions are expected to conform
+     to X/Open Portability Guide Issue 4, Version 2 (“XPG4.2”).  XXXXXX() is
+     nonstandard.
+
+HISTORY
+     The XXXXXX() function call appeared in AT&T System V Release 4 UNIX.  The
+     XXXXXX() function call appeared in 4.2BSD.	A XXXXXX() function call
+     appeared in Version 6 AT&T UNIX.
+
+macOS 14.6			 June 3, 2021			    macOS 14.6
